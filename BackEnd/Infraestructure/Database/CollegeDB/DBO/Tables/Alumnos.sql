@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Alumno]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT newid(), 
+    [Nombre] VARCHAR(50) NOT NULL, 
+    [Apellido] VARCHAR(50) NOT NULL, 
+    [DNI] INT NOT NULL
+)

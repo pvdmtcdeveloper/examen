@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  jorgeguillen.alumno.service:
+    image: ${DOCKER_REGISTRY-}jorgeguillenalumnoservice
+    container_name: jiga.college.service
+    build:
+      context: .
+      dockerfile: BackEnd/Domain/College/JorgeGuillen.Alumno.service/Dockerfile
+    ports:
+      - 8085:80
+      - 8086:443
+    networks:
+      - backend
+
+  jorgeguillen.security.service:
+    image: ${DOCKER_REGISTRY-}jorgeguillensecurityservice
+    container_name: jiga.college.sc.service
+    build:
+      context: .
+      dockerfile: BackEnd/Infraestructure/Security/JorgeGuillen.Security.service/Dockerfile
+    ports:
+      - 8087:80
+      - 8089:443
+    networks:
+      - backend
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:latest"
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Jiga@1980
+    ports:
+      - 14344:1433
+    networks:
+      - backend
+networks:
+  backend:
+    name: backend
+    driver: bridge
+
